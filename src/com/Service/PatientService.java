@@ -3,5 +3,5 @@ package com.Service;
 public interface PatientService {
 	public void addPatients();
 	public void viewPatients();
-	public void checkPatientbyId();
+	public boolean checkPatientbyId(int id);
 }

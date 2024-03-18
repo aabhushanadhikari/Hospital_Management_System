@@ -43,7 +43,7 @@ public class PatientServiceImpl implements PatientService{
 		try {
 			PreparedStatement stm=DB.getConnection().prepareStatement(sql);
 			ResultSet rs=stm.executeQuery();
-			System.out.println("Patients");
+			System.out.println("                     Patients                         ");
 			System.out.println("+--------+-------------------+---------+-------------+");
 			System.out.println("|  ID    |      Name         |  Age    |   Gender    |");
 			System.out.println("+--------+-------------------+---------+-------------+");
@@ -53,7 +53,7 @@ public class PatientServiceImpl implements PatientService{
 				String name=rs.getString("name");
 				int age=rs.getInt("age");
 				String gender=rs.getString("gender");
-				System.out.printf("%-9s|%-19s|%-9s|%-13s\n|",id,name,age,gender);
+				System.out.printf("|%-8s|%-19s|%-9s|%-13s|\n",id,name,age,gender);
 				System.out.println("+--------+-------------------+---------+-------------+");
 			}
 		}catch(Exception e) {
@@ -62,25 +62,20 @@ public class PatientServiceImpl implements PatientService{
 		
 	}
 	@Override
-	public void checkPatientbyId() {
-		System.out.println("Enter the id of the patient");
-		int id=Integer.parseInt(sc.nextLine());
-		String sql="Select * from patient where id=?";
+	public boolean checkPatientbyId(int id) {
+		String sql="Select * from patients where id=?";
 		try {
 			PreparedStatement stm=DB.getConnection().prepareStatement(sql);
 			stm.setInt(1, id);
 			ResultSet rs=stm.executeQuery();
 			if(rs.next()) {
-				System.out.println("The name is"+rs.getString("name"));
-				System.out.println("The age is"+rs.getInt("age"));
-				System.out.println("The gender is "+rs.getString("gender"));
-			}else {
-				System.out.println("The id you have typed does not exist");
+				return true;
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		return false;
 		
 	}
 
